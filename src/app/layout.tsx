@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Nunito, Playfair_Display } from "next/font/google";
+import { Nunito, Playfair_Display, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import StoreProvider from "@/providers/StoreProvider";
 import "./globals.css";
+import QueryProvider from "@/providers/QueryClientProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const playfair_display = Playfair_Display({
   variable: "--font-playfair-display",
+  subsets: ["latin"],
+});
+
+const space_grotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -27,13 +34,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StoreProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <QueryProvider>
           <body
-            className={`${nunito.variable} ${playfair_display.variable} antialiased`}
+            className={`${nunito.variable} ${space_grotesk.variable} antialiased`}
           >
             {children}
+            <Toaster />
           </body>
-        </ThemeProvider>
+        </QueryProvider>
       </StoreProvider>
     </html>
   );
