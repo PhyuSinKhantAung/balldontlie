@@ -13,9 +13,14 @@ export function UserMenu() {
 
   return (
     <div className="flex items-center gap-2 justify-between">
-      <Avatar>
-        <AvatarFallback>{user?.name.slice(0, 2)}</AvatarFallback>
-      </Avatar>
+      <div className="flex items-center gap-2">
+        <Avatar>
+          <AvatarFallback>
+            {user?.name.slice(0, 1).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <div>{user?.name}</div>
+      </div>
 
       <Button className="text-sm" onClick={() => dispatch(logout())}>
         <LogOut />

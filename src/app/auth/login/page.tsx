@@ -11,9 +11,5 @@ export default function Login() {
     redirect("/home");
   }
 
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+  return <LoginForm />;
 }

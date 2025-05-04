@@ -7,17 +7,13 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetPlayers } from "@/features/player/api/get-players.api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useInView } from "react-intersection-observer";
 import { TeamFormSchema, teamFormSchema } from "../schemas/teamFormSchema";
 import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/spinner";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { createTeam } from "@/features/team/teamSlice";
 import { Team } from "@/features/team/types";
-import { CreateTeamSchema } from "../schemas/createTeamSchema";
-import { UpdateTeamSchema } from "../schemas/updateTeamSchema";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { toast } from "sonner";
 
@@ -60,8 +56,6 @@ export function TeamForm({
     defaultValues: team ? team : undefined,
   });
 
-  console.log({ errors });
-
   const selectedPlayers = watch("players") || [];
 
   const togglePlayer = (id: number) => {
@@ -72,7 +66,6 @@ export function TeamForm({
         : [...selectedPlayers, id]
     );
   };
-  console.log({ selectedPlayers });
 
   const onSubmit = (data: TeamFormSchema) => {
     try {
@@ -95,21 +88,21 @@ export function TeamForm({
         <Label>Team Name</Label>
         <Input placeholder="Enter team name" {...register("name")} />
         {errors?.name && (
-          <p className="text-sm text-red-500">{errors?.name.message}</p>
+          <p className="text-sm text-destructive">{errors?.name.message}</p>
         )}
       </div>
       <div>
         <Label>Region</Label>
         <Input placeholder="Enter region" {...register("region")} />
         {errors?.region && (
-          <p className="text-sm text-red-500">{errors?.region.message}</p>
+          <p className="text-sm text-destructive">{errors?.region.message}</p>
         )}
       </div>
       <div>
         <Label>Country</Label>
         <Input placeholder="Enter country" {...register("country")} />
         {errors?.country && (
-          <p className="text-sm text-red-500">{errors?.country.message}</p>
+          <p className="text-sm text-destructive">{errors?.country.message}</p>
         )}
       </div>
 
@@ -122,7 +115,9 @@ export function TeamForm({
           {...register("playerCount")}
         />
         {errors?.playerCount && (
-          <p className="text-sm text-red-500">{errors?.playerCount.message}</p>
+          <p className="text-sm text-destructive">
+            {errors?.playerCount.message}
+          </p>
         )}
       </div>
 
@@ -156,15 +151,18 @@ export function TeamForm({
             )}
           </div>
         </ScrollArea>
+
         {errors?.players && (
-          <p className="text-sm text-red-500">{errors?.players.message}</p>
+          <p className="text-sm text-destructive">{errors?.players.message}</p>
         )}
+
         {isError && (
-          <p className="text-sm text-red-500 mt-1">
+          <p className="text-sm text-destructive mt-1">
             {"Error fetching players"}
           </p>
         )}
       </div>
+
       <DialogFooter>
         <DialogClose asChild>
           <Button variant={"ghost"} className="border">

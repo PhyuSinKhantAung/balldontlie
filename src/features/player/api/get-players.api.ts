@@ -2,7 +2,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import api from "@/lib/axios/axios";
 import { PlayersResponse } from "../types";
 
-// Fetch players with cursor pagination
 const fetchPlayers = async ({ pageParam = 0 }): Promise<PlayersResponse> => {
   const response = await api.get<PlayersResponse>("/players", {
     params: {

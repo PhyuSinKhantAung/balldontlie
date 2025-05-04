@@ -23,8 +23,6 @@ const teamSlice = createSlice({
         (team) => team.name.trim().toLowerCase() === name.trim().toLowerCase()
       );
 
-      console.log({ nameExists }, "here");
-
       if (nameExists) {
         throw new Error(`Team name "${name}" already exists`);
       }
@@ -38,10 +36,8 @@ const teamSlice = createSlice({
         throw new Error(`One or more players are already in another team`);
       }
 
-      // Add the team
       state.teams.push(action.payload);
 
-      // Update player-team mappings
       players.forEach((playerId) => {
         state.playerToTeamMap[playerId] = id;
       });
@@ -85,10 +81,8 @@ const teamSlice = createSlice({
         delete state.playerToTeamMap[playerId];
       });
 
-      // Update the team
       state.teams[teamIndex] = action.payload;
 
-      // Add new players to the mapping
       players.forEach((playerId) => {
         state.playerToTeamMap[playerId] = id;
       });
@@ -102,12 +96,10 @@ const teamSlice = createSlice({
 
       const teamToDelete = state.teams[teamIndex];
 
-      // Remove all players from the team in playerToTeamMap
       teamToDelete.players.forEach((playerId) => {
         delete state.playerToTeamMap[playerId];
       });
 
-      // Remove the team
       state.teams.splice(teamIndex, 1);
     },
   },

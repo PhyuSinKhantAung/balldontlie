@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Team } from "../types";
-import { Button } from "@/components/ui/button";
 import { UpdateTeamDialog } from "./UpdateTeamDialog";
 import { DeleteTeamDialog } from "./DeleteTeamDialog";
 

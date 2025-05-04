@@ -14,19 +14,20 @@ import { TeamFormSchema } from "../schemas/teamFormSchema";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { Team } from "../types";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function UpdateTeamDialog({ team }: { team: Team }) {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
 
   const handleUpdateTeam = (data: TeamFormSchema) => {
-    console.log("updated data", data);
     dispatch(
       updateTeam({
         ...data,
         id: team.id,
       })
     );
+    toast.success(`Team "${data.name}" updated successfully`);
     setOpen(false);
   };
 

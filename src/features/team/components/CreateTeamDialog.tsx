@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,12 +6,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { TeamForm } from "./TeamForm";
 import { createTeam } from "../teamSlice";
 import { TeamFormSchema } from "../schemas/teamFormSchema";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function CreateTeamDialog() {
   const dispatch = useAppDispatch();
@@ -20,10 +21,10 @@ export function CreateTeamDialog() {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleCreateTeam = (data: TeamFormSchema) => {
-    console.log("data", data);
     dispatch(
       createTeam({ ...data, id: Math.floor(10000 + Math.random() * 90000) })
     );
+    toast.success(`Team "${data.name}" created successfully`);
     setOpen(false);
   };
 

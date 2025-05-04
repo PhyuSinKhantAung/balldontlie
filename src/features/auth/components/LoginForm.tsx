@@ -21,10 +21,10 @@ export function LoginForm() {
   });
 
   const onSubmit = (data: LoginSchema) => {
-    console.log("data", data);
     dispatch(login({ id: "1", name: data.name }));
     redirect("/home");
   };
+
   return (
     <form
       className="flex min-h-screen items-center justify-center"

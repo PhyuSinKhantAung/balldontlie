@@ -1,6 +1,5 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
-import authReducer from "@/features/auth/authSlice";
 
 export const makeStore = () => {
   const persistedState =
